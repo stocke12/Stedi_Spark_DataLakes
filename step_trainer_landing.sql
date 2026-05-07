@@ -1,4 +1,4 @@
-CREATE EXTERNAL TABLE IF NOT EXISTS `stedi`.`step_trainer` (
+CREATE EXTERNAL TABLE IF NOT EXISTS `stedi`.`step_trainer_landing` (
   `sensorReadingTime` bigint,
   `serialNumber` string,
   `distanceFromObject` int
