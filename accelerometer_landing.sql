@@ -7,7 +7,11 @@ CREATE EXTERNAL TABLE IF NOT EXISTS `stedi`.`accelerometer_landing` (
 )
 ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
 WITH SERDEPROPERTIES (
-  'ignore.malformed.json' = 'true'
+  'ignore.malformed.json' = 'FALSE',
+  'dots.in.keys' = 'FALSE',
+  'case.insensitive' = 'TRUE',
+  'mapping' = 'TRUE'
 )
-LOCATION 's3://your-bucket-name/accelerometer/landing/'
+STORED AS INPUTFORMAT 'org.apache.hadoop.mapred.TextInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION 's3://stedi-lakehouse-stockton/accelerometer_landing/'
 TBLPROPERTIES ('classification' = 'json');
