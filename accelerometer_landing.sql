@@ -5,7 +5,9 @@ CREATE EXTERNAL TABLE IF NOT EXISTS `stedi`.`accelerometer_landing` (
   `y` float,
   `z` float
 )
-ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'
-STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
-LOCATION 's3://stedi-lakehouse-stockton/accelerometer_landing/'
-TBLPROPERTIES ('classification' = 'parquet');
+ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
+WITH SERDEPROPERTIES (
+  'ignore.malformed.json' = 'true'
+)
+LOCATION 's3://your-bucket-name/accelerometer/landing/'
+TBLPROPERTIES ('classification' = 'json');
