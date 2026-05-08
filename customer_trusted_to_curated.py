@@ -46,13 +46,13 @@ SELECT DISTINCT
     ct.sharewithpublicasofdate,
     ct.sharewithfriendsasofdate
 FROM customer_trusted ct
-JOIN accelerometer_trusted at ON ct.email = at.email
+JOIN accelerometer_trusted at ON ct.email = at.user
 '''
 SQLQuery_node1778264412954 = sparkSqlQuery(glueContext, query = SqlQuery0, mapping = {"customer_trusted":CustomerTrusted_node1778264348173, "accelerometer_trusted":AccelerometerTrusted_node1778264381920}, transformation_ctx = "SQLQuery_node1778264412954")
 
 # Script generated for node Customer Curated
 EvaluateDataQuality().process_rows(frame=SQLQuery_node1778264412954, ruleset=DEFAULT_DATA_QUALITY_RULESET, publishing_options={"dataQualityEvaluationContext": "EvaluateDataQuality_node1778263091730", "enableDataQualityResultsPublishing": True}, additional_options={"dataQualityResultsPublishing.strategy": "BEST_EFFORT", "observations.scope": "ALL"})
-CustomerCurated_node1778264496460 = glueContext.getSink(path="s3://stedi-lakehouse-stockton/customer_curated/", connection_type="s3", updateBehavior="UPDATE_IN_DATABASE", partitionKeys=[], enableUpdateCatalog=True, transformation_ctx="CustomerCurated_node1778264496460")
+CustomerCurated_node1778264496460 = glueContext.getSink(path="s3://stedi-lakehouse-stockton/customer/curated/", connection_type="s3", updateBehavior="UPDATE_IN_DATABASE", partitionKeys=[], enableUpdateCatalog=True, transformation_ctx="CustomerCurated_node1778264496460")
 CustomerCurated_node1778264496460.setCatalogInfo(catalogDatabase="stedi",catalogTableName="customer_curated")
 CustomerCurated_node1778264496460.setFormat("glueparquet", compression="snappy")
 CustomerCurated_node1778264496460.writeFrame(SQLQuery_node1778264412954)
